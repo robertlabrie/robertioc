@@ -1,0 +1,17 @@
+{
+    "name": "robertlabrie/robertioc",
+    "description": "My IoC experiment",
+    "license": "GPL V2",
+    "authors": [
+        {
+            "name": "Robert Labrie",
+            "email": "robert.labrie@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": {
+            "RobertIOC": "src/"
+        }
+    }
+}
