@@ -2,6 +2,9 @@
 require_once __DIR__."/../vendor/autoload.php";
 require_once __DIR__."/SampleObject.php";
 require_once __DIR__."/ObjectToMake.php";
+require_once __DIR__."/ExpectsException.php";
+require_once __DIR__."/ExpectsMongo.php";
+
 class RobertIOCTest extends PHPUnit_Framework_TestCase
 {
 	protected $container = Array();
@@ -9,6 +12,8 @@ class RobertIOCTest extends PHPUnit_Framework_TestCase
 	public function setUp()
 	{
 		$this->container['Sample\SampleObject'] = new \Sample\SampleObject();
+		$this->container['Exception'] = new \Exception('foo');
+		$this->container['MongoClient'] = new \MongoClient();
 		$this->ioc = new \RobertIOC\RobertIOC($this->container);
 	}
 	public function testObjectToMake()
@@ -29,4 +34,15 @@ class RobertIOCTest extends PHPUnit_Framework_TestCase
 	{
 		$o = $this->ioc->instantiate('Sample\GoingToFail');
 	}
+	
+	public function testInstantiatePredefined()
+	{
+		$o = $this->ioc->instantiate('Sample\ExpectsException');
+	}
+	public function testInstantiateMongo()
+	{
+		$o = $this->ioc->instantiate('Sample\ExpectsMongo');
+		$this->assertEquals(get_class($o->mongo),"MongoClient");
+	}
+
 }
